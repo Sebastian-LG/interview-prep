@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/256433299461011131/26cfc5be007c4fb98f11e8e79438400e/artifacts
+deleted_time: 1756164712038
+end_time: 1756160631590
+entry_point_name: ''
+experiment_id: '256433299461011131'
+lifecycle_stage: deleted
+run_id: 26cfc5be007c4fb98f11e8e79438400e
+run_name: likeable-bee-136
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756160628018
+status: 3
+tags: []
+user_id: Sebastian Leon

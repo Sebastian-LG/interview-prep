@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/360330419078114691/9fe67f2e7a2749e28d79a62d2afad0ea/artifacts
+deleted_time: 1756164705101
+end_time: 1756164292263
+entry_point_name: ''
+experiment_id: '360330419078114691'
+lifecycle_stage: deleted
+run_id: 9fe67f2e7a2749e28d79a62d2afad0ea
+run_name: tasteful-shrew-779
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756164290201
+status: 4
+tags: []
+user_id: Sebastian Leon

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/360330419078114691/e918ee97a3ae47768d29c6bd305bc9d6/artifacts
+end_time: 1756169283316
+entry_point_name: ''
+experiment_id: '360330419078114691'
+lifecycle_stage: active
+run_id: e918ee97a3ae47768d29c6bd305bc9d6
+run_name: respected-elk-298
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756169272877
+status: 3
+tags: []
+user_id: Sebastian Leon

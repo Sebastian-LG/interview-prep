@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/360330419078114691/155467eb7a4d4bd199b8b084baaa0423/artifacts
+end_time: 1756164690886
+entry_point_name: ''
+experiment_id: '360330419078114691'
+lifecycle_stage: active
+run_id: 155467eb7a4d4bd199b8b084baaa0423
+run_name: mysterious-bee-0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756164678419
+status: 3
+tags: []
+user_id: Sebastian Leon
