@@ -1,0 +1,18 @@
+aliases: []
+creation_timestamp: 1756402186172
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1756402186172
+metrics: null
+model_id: m-37d40dbbbe9a4d57b79a8062c1e60671
+name: Best Model
+params: null
+run_id: ''
+run_link: ''
+source: file:///g:/Mi%20unidad/2025/interview-prep/MLFLOW/3_MLFlow_deep_learning_project/mlruns/806644166701598383/models/m-37d40dbbbe9a4d57b79a8062c1e60671/artifacts
+status: READY
+status_message: null
+storage_location: file:///g:/Mi%20unidad/2025/interview-prep/MLFLOW/3_MLFlow_deep_learning_project/mlruns/806644166701598383/models/m-37d40dbbbe9a4d57b79a8062c1e60671/artifacts
+user_id: null
+version: 1

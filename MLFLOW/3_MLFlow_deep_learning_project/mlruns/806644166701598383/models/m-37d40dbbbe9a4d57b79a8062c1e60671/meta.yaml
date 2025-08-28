@@ -1,0 +1,10 @@
+artifact_location: file:///g:/Mi%20unidad/2025/interview-prep/MLFLOW/3_MLFlow_deep_learning_project/mlruns/806644166701598383/models/m-37d40dbbbe9a4d57b79a8062c1e60671/artifacts
+creation_timestamp: 1756399996761
+experiment_id: '806644166701598383'
+last_updated_timestamp: 1756400010872
+model_id: m-37d40dbbbe9a4d57b79a8062c1e60671
+model_type: null
+name: model
+source_run_id: 0bcb1f9a7aa4472babdcd589fbab057c
+status: 2
+status_message: null
