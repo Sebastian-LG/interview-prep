@@ -1,0 +1,18 @@
+aliases: []
+creation_timestamp: 1756344451387
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1756344451387
+metrics: null
+model_id: m-73b8618969014412b3f4de4d6bc43584
+name: Best random forest model
+params: null
+run_id: 8e3b8358d2ec406faeac950752f4b6e0
+run_link: ''
+source: models:/m-73b8618969014412b3f4de4d6bc43584
+status: READY
+status_message: null
+storage_location: file:///g:/Mi%20unidad/2025/interview-prep/MLFLOW/2_MLFlow_project/mlruns/0/models/m-73b8618969014412b3f4de4d6bc43584/artifacts
+user_id: null
+version: 1
