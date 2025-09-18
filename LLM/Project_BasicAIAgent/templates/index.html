@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Documentation Reviewer</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        textarea { width: 100%; height: 200px; }
+        .feedback { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Documentation Reviewer</h1>
+    <form method="post" enctype="multipart/form-data">
+        <label>Paste your text:</label><br>
+        <textarea name="text"></textarea><br><br>
+
+        <label>Or upload a file:</label><br>
+        <input type="file" name="file"><br><br>
+
+        <button type="submit">Review</button>
+    </form>
+
+    {% if feedback %}
+    <div class="feedback">
+        <h2>Overall Score: {{ score }}/100</h2>
+        <pre>{{ feedback }}</pre>
+    </div>
+    {% endif %}
+</body>
+</html>
