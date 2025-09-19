@@ -1,0 +1,30 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: "0 12 */5 * *"  # every 5 days
+  workflow_dispatch:
+
+permissions:
+  contents: write   # 👈 allows the bot to push commits
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true   # 👈 important for pushing
+
+      - name: Update README
+        run: |
+          echo "Last update: $(date -u)" >> README.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Automated update: $(date -u)" || echo "No changes to commit"
+          git push
