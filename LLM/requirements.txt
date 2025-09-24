@@ -9,3 +9,9 @@ wikipedia
 langchain-text-splitters
 langchain-openai
 chromadb
+langchain-ollama
+sentence_transformers
+langchain_huggingface
+tf-keras
+faiss-cpu
+langchain_chroma
