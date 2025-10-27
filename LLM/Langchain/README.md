@@ -267,3 +267,64 @@ vectorstore = FAISS.from_texts(docs, embedder)
 # Query
 results = vectorstore.similarity_search("How is AI used in medicine?", k=1)
 print(results[0].page_content)
+```
+
+
+# 🌐 LangGraph
+
+## 🚀 Overview
+
+**LangGraph** is an open-source framework by **LangChain** for building **stateful**, **multi-agent** systems.
+It lets you design agent workflows as **graphs** — where each node is an action, tool, or model, and edges define how data flows.
+
+✅ Stateful & resumable
+✅ Human-in-the-loop control
+✅ Streaming & observability
+✅ Fully customizable and production-ready
+
+
+## ⚙️ Installation
+
+
+```python
+pip install -U langgraph
+```
+
+---
+
+## 💡 Quick Start
+
+```python
+from langgraph.prebuilt import create_react_agent
+
+def get_weather(city: str) -> str:
+    return f"It's always sunny in {city}!"
+
+agent = create_react_agent(
+    model="anthropic:claude-3-7-sonnet-latest",
+    tools=[get_weather],
+    prompt="You are a helpful assistant."
+)
+
+response = agent.invoke({"messages": [{"role": "user", "content": "Weather in Bogotá?"}]})
+print(response)
+```
+
+---
+
+## 🧠 Core Concepts
+
+* **Graph:** Nodes (agents/functions) + Edges (execution flow)
+* **State:** Shared memory that persists between steps
+* **Control:** Conditional edges, human approval, error recovery
+* **Integration:** Works seamlessly with LangChain tools & LangSmith
+
+---
+
+## 🧩 When to Use
+
+Use LangGraph if you need:
+
+* Multi-agent orchestration
+* Stateful, long-running logic
+* Transparent, controllable agent behavior
