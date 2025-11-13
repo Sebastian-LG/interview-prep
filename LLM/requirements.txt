@@ -16,3 +16,10 @@ tf-keras
 faiss-cpu
 langchain_chroma
 beautifulsoup4
+langchain_groq
+langchain_core
+fastapi
+uvicorn
+langserve
+sse_starlette
+streamlit
