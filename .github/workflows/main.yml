@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "0 */36 * * *"  # every 36 hours
+    - cron: "**0 0 1 * ***"  # every 36 hours
   workflow_dispatch:
 
 permissions:

@@ -517,7 +517,250 @@ By combining **Groq**, **LCEL**, **Chain Components**, and **LangServe**, you ca
 * Optimize **latency** and **scalability**
 * Transition smoothly from **prototype to production**
 
+
+# 📘 LangChain Session History — A Practical Guide
+
+LangChain provides multiple tools to manage **chat history**, **session memory**, and **stateful interactions**.
+This guide explains how to use the key classes:
+
+* **`ChatMessageHistory`**
+* **`BaseChatMessageHistory`**
+* **`RunnableWithMessageHistory`**
+
+With examples that show how to store, retrieve, and reuse chat messages across runs.
+
 ---
 
+# 🔧 1. `ChatMessageHistory`
+
+`ChatMessageHistory` is the simplest in-memory message store for a chat session.
+
+### ✔ When to use
+
+* When you need lightweight, in-memory history
+* When each session has its own message buffer
+* When you want to manually add or retrieve messages
+
+### ✔ What it stores
+
+* `HumanMessage`
+* `AIMessage`
+* `SystemMessage`
+* `ToolMessage`
+
+---
+
+## 📌 Example: Basic Usage
+
+```python
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.messages import HumanMessage, AIMessage
+
+history = ChatMessageHistory()
+
+# Add messages
+history.add_user_message("Hello, how are you?")
+history.add_ai_message("I'm good, thanks!")
+
+# Inspect messages
+for msg in history.messages:
+    print(msg.type, ":", msg.content)
 ```
 
+### Output:
+
+```
+human : Hello, how are you?
+ai : I'm good, thanks!
+```
+
+`ChatMessageHistory` is often used inside memory wrappers or custom session managers.
+
+---
+
+# 🧩 2. `BaseChatMessageHistory`
+
+This is an **abstract base class** used by LangChain to define the interface for any chat history backend.
+
+### ✔ When to use
+
+* When you want to build a **custom message history**, like:
+
+  * Redis-backed history
+  * DynamoDB
+  * SQL
+  * MongoDB
+  * Local disk storage
+
+### ✔ Must implement
+
+```python
+get_messages()
+add_message()
+clear()
+```
+
+---
+
+## 📌 Example: Custom History Backend
+
+Below is a minimal example using Python lists but showing how you would implement your own DB-backed class:
+
+```python
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.messages import BaseMessage
+
+class MyCustomHistory(BaseChatMessageHistory):
+    def __init__(self):
+        self._messages = []
+
+    def add_message(self, message: BaseMessage):
+        self._messages.append(message)
+
+    def get_messages(self):
+        return self._messages
+
+    def clear(self):
+        self._messages = []
+```
+
+You can now plug this into any LangChain system expecting a `BaseChatMessageHistory`.
+
+---
+
+# 🔄 3. `RunnableWithMessageHistory`
+
+This is the **most important modern API** for storing session history inside LangChain’s new Runnable framework.
+
+It automatically:
+
+* Tracks messages for each session
+* Injects previous messages into the prompt
+* Saves AI + user messages after each call
+
+### ✔ When to use
+
+* Building **stateful chatbots**
+* Managing **per-session memory**
+* Using LangChain’s `Runnable` pipelines
+* Working with web apps (FastAPI/Flask/Streamlit)
+
+---
+
+## ✨ How it works
+
+You wrap ANY runnable (e.g., an LLM) with a message history provider:
+
+```python
+RunnableWithMessageHistory(
+    runnable,
+    get_history,
+    input_messages_key="input",
+    history_messages_key="history",
+)
+```
+
+Where:
+
+* `get_history(session_id) → ChatMessageHistory`
+  returns the history for a given user
+* `input_messages_key`
+  tells the wrapper which key contains the user input
+* `history_messages_key`
+  tells the wrapper where to inject history into the prompt
+
+---
+
+## 📌 Complete Example: Stateful Chatbot
+
+```python
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_openai import ChatOpenAI
+
+# LLM
+model = ChatOpenAI(model="gpt-4o-mini")
+
+# All session histories stored here
+session_store = {}
+
+# Function required by RunnableWithMessageHistory
+def get_session_history(session_id: str):
+    if session_id not in session_store:
+        session_store[session_id] = ChatMessageHistory()
+    return session_store[session_id]
+
+# Create runnable with message history
+with_history = RunnableWithMessageHistory(
+    model,
+    get_session_history,
+    input_messages_key="input",
+    history_messages_key="history",
+)
+
+# Example call
+result = with_history.invoke(
+    {"input": "Hello!"},
+    config={"configurable": {"session_id": "user123"}},
+)
+
+print(result)
+```
+
+### Next call in the same session:
+
+```python
+with_history.invoke(
+    {"input": "What did I just tell you?"},
+    config={"configurable": {"session_id": "user123"}},
+)
+```
+
+The model now sees both messages in context.
+
+---
+
+# 🧠 What Does `RunnableWithMessageHistory` Actually Inject?
+
+Before each call, it transforms this:
+
+```python
+{"input": "..."}
+```
+
+Into:
+
+```python
+{
+  "history": [
+      HumanMessage("Hello!"),
+      AIMessage("Hi there!")
+  ],
+  "input": "New question here"
+}
+```
+
+And after the call, it saves:
+
+* the user's input
+* the AI's output
+
+Into the selected history store.
+
+---
+
+# 🗂 Summary Table
+
+| Component                    | Purpose                                 | When to Use                  | Persistent?             |
+| ---------------------------- | --------------------------------------- | ---------------------------- | ----------------------- |
+| `ChatMessageHistory`         | In-memory message buffer                | Small apps, quick prototypes | ❌ No                    |
+| `BaseChatMessageHistory`     | Interface for custom history            | Custom DB backends           | ✔ Yes (if you build it) |
+| `RunnableWithMessageHistory` | Wraps any runnable with session history | Stateful LLM apps            | Depends on backend      |
+
+---
+
+# 🏁 Final Notes
+
+* Use **`ChatMessageHistory`** for simple apps.
+* Implement **`BaseChatMessageHistory`** for production apps using databases.
+* Wrap your LLM with **`RunnableWithMessageHistory`** for stateful conversation flows.
