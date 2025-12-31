@@ -28,7 +28,7 @@ It works with multiple LLM providers (OpenAI, Hugging Face, Cohere, etc.) and su
 
 ### Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * Access to an LLM provider (e.g., OpenAI API key)
 
 ### Install LangChain
